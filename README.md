@@ -1,11 +1,11 @@
 usual Github work flow
 
-first time
+--first time
 
 git clone https://github.com/kemal1132/RemoteTemperatureAlarmSystem.git
 
 
-to add something
+--to add something
 
 git pull origin master
 
@@ -19,7 +19,7 @@ git push origin master
 
 
 
-if you are feeling fancy //big projects/jobs and stuff
+--if you are feeling fancy //big projects/jobs and stuff
 
 git pull origin master
 
