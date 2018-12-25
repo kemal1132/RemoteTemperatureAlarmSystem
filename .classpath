@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Programming/Java Workspace/SE360/extLibraries/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Programming/Java Workspace/SE360/extLibraries/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Programming/Java Workspace/SE360/extLibraries/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="/home/kemal1132/Desktop/SE360/extLibraries/activation.jar"/>
+	<classpathentry kind="lib" path="/home/kemal1132/Desktop/SE360/extLibraries/mail.jar"/>
+	<classpathentry kind="lib" path="/home/kemal1132/Desktop/SE360/extLibraries/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
