@@ -2,11 +2,16 @@ package DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import ServerAndClient.Record;
+
 public class SimpleDatabase {
+	
 
 	/** The name of the MySQL account to use (or empty for anonymous) */
 	private final String userName = "root";
@@ -54,7 +59,7 @@ public class SimpleDatabase {
 	/**
 	 * Connect to MySQL and do some stuff.
 	 */
-	public void run() {
+	public void createTable() {
 
 		// Connect to MySQL
 		Connection conn = null;
@@ -69,7 +74,7 @@ public class SimpleDatabase {
 
 		// Create a table
 		try {
-			String createString = "CREATE TABLE " + this.tableName + " ( " + "RECORDID INTEGER NOT NULL, "
+			String createString = "CREATE TABLE " + this.tableName + " ( " + "RECORDID INTEGER NOT NULL, "+ "RECORDTIME TIMESTAMP NOT NULL, "
 					+ "PLANTID INTEGER NOT NULL, " + "TEMPERATURE INTEGER NOT NULL, " + "PRIMARY KEY (RECORDID))";
 			this.executeUpdate(conn, createString);
 			System.out.println("Created a table");
@@ -81,8 +86,22 @@ public class SimpleDatabase {
 
 	}
 
-	public void insertToDatabase(int farmID, int PlantID, int temp) {
-		String insertString = "INSERT INTO FarmRecords VALUES (" + farmID + ","
+	public void insertToDatabase(String RecordTime, int PlantID, int temp) {
+		int count=0;
+		String query = "SELECT COUNT(*) FROM FarmRecords;";
+		try {
+			Statement statement = this.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		String insertString = "INSERT INTO FarmRecords VALUES ("+count+","+ "\"" + RecordTime + "\","
 				+ PlantID + "," + temp + ")";
 		// Connect to MySQL
 		Connection conn = null;
@@ -101,10 +120,38 @@ public class SimpleDatabase {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Record> getResultsFromDatabase(boolean onlyEmergency){
+		String query;
+		ArrayList<Record> results = new ArrayList<Record>();
+		if(!onlyEmergency){
+			query = "SELECT * FROM FarmRecords";
+		}else{
+			query = "Select * FROM FarmRecords WHERE TEMPERATURE<6";
+		}
+		try {
+			Statement statement = this.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()){
+				String recordTime = rs.getString("RECORDTIME");
+				int plantID = rs.getInt("PLANTID");
+				int temperature = rs.getInt("TEMPERATURE");
+				results.add(new Record(recordTime,plantID,temperature));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		return results;
+		
+	} 
 
 	public static void main(String[] args) {
-		SimpleDatabase app = new SimpleDatabase();
-		app.insertToDatabase(10, 10, 4);
+	
+
+		
 
 	}
 }
