@@ -20,7 +20,7 @@ public class EmailSender {
 		System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
 	}
  
-	public static void generateAndSendEmail(String subject, String emailBodyHtml, String Recipient) throws AddressException, MessagingException {
+	public static boolean generateAndSendEmail(String subject, String emailBodyHtml, String Recipient) throws AddressException, MessagingException {
  
 		// Step1 Setting up mail server
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
@@ -54,5 +54,6 @@ public class EmailSender {
 		transport.connect("smtp.gmail.com", "farmtempmanager", "kemalonline1132");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
+		return true;
 	}
 }

@@ -37,7 +37,7 @@ public class RecordTabelModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Record temporary = RecordList.get(row);
+		Record temporary = RecordList.get((RecordList.size()-1)-row);
 		switch(col){
 			case RecordTime_Col:
 				return temporary.getRecordTime();

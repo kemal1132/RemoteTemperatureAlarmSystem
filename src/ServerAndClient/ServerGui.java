@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,7 +31,7 @@ public class ServerGui extends JFrame {
 	private JTextField email;
 	private JTable table;
 	private boolean showEmergency= false;
-	public static String eMail ="";
+	public static String eMail ="kemaldemirel1132@gmail.com";
 	/**
 	 * Launch the application.
 	 */
@@ -106,8 +108,9 @@ public class ServerGui extends JFrame {
 			}
 		});
 		
-		emergencies.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
+		emergencies.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
 				showEmergency = !showEmergency;
 				System.out.println("Refreshed");
 				RecordTabelModel model = new RecordTabelModel(database.getResultsFromDatabase(showEmergency));

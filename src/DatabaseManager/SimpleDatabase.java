@@ -86,7 +86,7 @@ public class SimpleDatabase {
 
 	}
 
-	public void insertToDatabase(String RecordTime, int PlantID, int temp) {
+	public boolean insertToDatabase(String RecordTime, int PlantID, int temp) {
 		int count=0;
 		String query = "SELECT COUNT(*) FROM FarmRecords;";
 		try {
@@ -97,8 +97,9 @@ public class SimpleDatabase {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return false;
 		
 		}
 		String insertString = "INSERT INTO FarmRecords VALUES ("+count+","+ "\"" + RecordTime + "\","
@@ -111,14 +112,15 @@ public class SimpleDatabase {
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not connect to the database");
 			e.printStackTrace();
-			return;
+			return false;
 		}
 		try {
 			this.executeUpdate(conn, insertString);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 	
 	public ArrayList<Record> getResultsFromDatabase(boolean onlyEmergency){
@@ -149,7 +151,8 @@ public class SimpleDatabase {
 	} 
 
 	public static void main(String[] args) {
-	
+	SimpleDatabase database = new SimpleDatabase();
+	database.createTable();
 
 		
 

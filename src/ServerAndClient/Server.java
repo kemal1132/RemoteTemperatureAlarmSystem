@@ -41,10 +41,7 @@ class Server implements Runnable {
 	}
 
 	public void run() {
-		/*
-		 * Keep on reading from the socket till we receive "Bye" from the
-		 * server. Once we received that then we want to break.
-		 */
+		
 		Record temporary;
 		try {
 			while (true) {
